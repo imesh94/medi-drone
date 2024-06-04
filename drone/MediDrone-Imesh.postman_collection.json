@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "8ebdb735-4172-48b9-a854-0dc458ea5c10",
+		"name": "Medi_Drone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5085541"
+	},
+	"item": [
+		{
+			"name": "Drones",
+			"item": [
+				{
+					"name": "Register Drone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"DR011\",\n    \"model\": \"Lightweight\",\n    \"weightLimit\": 500,\n    \"batteryCapacity\": 100,\n    \"state\": \"IDLE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8080/drones/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Drone State",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newState\": \"LOADING\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/drones/DR001/state",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Drones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/drones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get  Drone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/DR001",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Drones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/available",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Load Medication to Drone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/DR001/load/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001",
+								"load",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Drone",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/DR001",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Drone Battery Level",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/DR001/batteryLevel",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001",
+								"batteryLevel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Drone Medications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/DR001/medications",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001",
+								"medications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unload All Medications",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/drones/DR001/unloadAll",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001",
+								"unloadAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Battery Level",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"batteryLevel\": 25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/drones/DR001/batteryLevel",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"drones",
+								"DR001",
+								"batteryLevel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medications",
+			"item": [
+				{
+					"name": "Add Medication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Amoxilin\",\n    \"weight\": 50,\n    \"code\": \"M006\",\n    \"imageUrl\": \"amox.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/medications/add",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medications",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Medications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/medications",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Medication Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/medications/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Medication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/medications/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medications",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AuditLogs",
+			"item": [
+				{
+					"name": "Get Audit Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/logs?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"logs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,366 @@
+openapi: 3.0.0
+info:
+  title: Medi Drone API
+  version: 1.0.0
+  description: |-
+    This is an API designed to manage a fleet of drones that are used to transport medication. This was developed as a Spring framework learning exercise.
+  contact:
+    name: Imesh Perera
+    email: imeshuperera@gmail.com
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Drones
+  - name: Medications
+  - name: AuditLogs
+paths:
+  /drones/register:
+    post:
+      tags:
+        - Drones
+      summary: Register a new drone in the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - serialNumber
+                - model
+                - weightLimit
+                - batteryCapacity
+                - state
+              properties:
+                serialNumber:
+                  type: string
+                  example: "DR001"
+                model:
+                  type: string
+                  enum: [Lightweight, Middleweight, Cruiserweight, Heavyweight]
+                  example: "Lightweight"
+                weightLimit:
+                  type: integer
+                  minimum: 1
+                  maximum: 500
+                  example: 500
+                batteryCapacity:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  example: 100
+                state:
+                  type: string
+                  enum: [IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING]
+                  example: "IDLE"
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /drones:
+      get:
+        tags:
+          - Drones
+        summary: Get all drones registered in the system
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json: {}
+  /drones/{serialNo}:
+    get:
+      tags:
+        - Drones
+      summary: Get drone details
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Drones
+      summary: Delete drone from the system
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /drones/{serialNo}/state:
+    put:
+      tags:
+        - Drones
+      summary: Update drone state
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newState:
+                  type: string
+                  enum: [IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING]
+                  example: LOADING
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /drones/available:
+    get:
+      tags:
+        - Drones
+      summary: Get available drones that are ready for loading
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /drones/{serialNo}/load/{medicationId}:
+    post:
+      tags:
+        - Drones
+      summary: Load medication to drone
+      requestBody:
+        content: {}
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+        - name: medicationId
+          in: path
+          description: Id of the medication to load
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /drones/{serialNo}/batteryLevel:
+    get:
+      tags:
+        - Drones
+      summary: Get current battery level of the drone
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Drones
+      summary: Update Battery Level
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                batteryLevel: 25
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /drones/{serialNo}/medications:
+    get:
+      tags:
+        - Drones
+      summary: Get medications that are loaded in the drone
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /drones/{serialNo}/unloadAll:
+    delete:
+      tags:
+        - Drones
+      summary: Unload all medications from the drone
+      parameters:
+        - name: serialNo
+          in: path
+          description: Serial number of the drone
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /medications/add:
+    post:
+      tags:
+        - Medications
+      summary: Add medication to the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Paracetamol
+                weight: 100
+                code: M005
+                imageUrl: para.jpg
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /medications:
+    get:
+      tags:
+        - Medications
+      summary: Get all medications registered in the system
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /medications/{medicationId}:
+    get:
+      tags:
+        - Medications
+      summary: Get medication details
+      parameters:
+        - name: medicationId
+          in: path
+          description: Id of the medication to load
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Medications
+      summary: Delete medication from the system
+      parameters:
+        - name: medicationId
+          in: path
+          description: Id of the medication to load
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '400':
+          description: Request validation failed
+          content:
+            application/json: {}
+  /logs:
+    get:
+      tags:
+        - AuditLogs
+      summary: Get audit logs (paginated)
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '0'
+        - name: size
+          in: query
+          schema:
+            type: integer
+          example: '20'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
